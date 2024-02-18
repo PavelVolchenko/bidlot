@@ -47,8 +47,10 @@
         </ul>
         {% if user.is_authenticated %}
           <div class="d-flex pe-4 text-white"><strong>{{ user.username.upper }}</strong></div>
-          <a href="{% url 'logout' %}" class="btn btn-sm btn-success
-           me-4">Выход</a>
+          <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-sm btn-success me-4">Выход</button>
+          </form>
         {% else %}
           <a href="{% url 'login' %}" class="btn btn-sm btn-success me-4">Войти</a>
           <a href="{% url 'signup' %}" class="btn btn-sm btn-success me-4">Регистрация</a>
