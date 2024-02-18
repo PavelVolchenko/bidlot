@@ -1,4 +1,5 @@
 import uuid
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse
 
@@ -6,7 +7,9 @@ from accounts.models import CustomUser
 
 
 # def user_directory_path(instance, filename):
-#     return 'user-{0}/{1}'.format(instance.card.user_id, filename)
+    # return 'user-{0}/{1}'.format(instance.card.user_id, filename)
+def user_directory_path(filename):
+    return 'user-{0}-{1}/{2}'.format(get_user_model().id, get_user_model(), filename)
 
 
 class Card(models.Model):
@@ -16,8 +19,9 @@ class Card(models.Model):
         editable=False)
 
     user = models.ForeignKey(
-        CustomUser,
-        related_name='user_id',
+        get_user_model(),
+        # CustomUser,
+        # related_name='user_id',
         on_delete=models.CASCADE)
 
     title = models.CharField(
@@ -59,9 +63,22 @@ class Card(models.Model):
         indexes = [
             models.Index(fields=['-created']),
         ]
+        permissions = [
+            ('special_status', 'Can be used')
+        ]
 
-# class ItemImage(models.Model):
-#     image = models.ImageField(upload_to=user_directory_path)
-#     card = models.ForeignKey(Card, related_name='card_images', on_delete=models.CASCADE)
-#     created = models.DateTimeField(auto_now_add=True)
-#     updated = models.DateTimeField(auto_now=True)
+
+class Image(models.Model):
+    path = models.ImageField(
+        upload_to=user_directory_path)
+
+    card = models.ForeignKey(
+        Card,
+        related_name='images',
+        on_delete=models.CASCADE)
+
+    created = models.DateTimeField(
+        auto_now_add=True)
+
+    updated = models.DateTimeField(
+        auto_now=True)

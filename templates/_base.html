@@ -13,7 +13,7 @@
 {% block header %}
   <nav class="navbar navbar-expand-md navbar-dark bg-dark bg-gradient" aria-label="Fourth navbar example">
     <div class="container-fluid">
-      <a class="navbar-brand ps-4" href="#">BidLot.ru</a>
+      <a class="navbar-brand ps-4" href="{% url 'home' %}">BidLot.ru</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04"
               aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -21,9 +21,11 @@
       <div class="collapse navbar-collapse ps-4" id="navbarsExample04">
         <ul class="navbar-nav me-auto mb-2 mb-md-0">
           <li class="nav-item"><a class="nav-link active" aria-current="page"
-                                  href="#">Главная</a>
+                                  href="{% url 'home' %}">Главная</a>
           </li>
           {% if user.is_authenticated %}
+            <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'card_list' %}">Карточки</a>
+            </li>
             <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Загрузить</a>
             </li>
             <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Экспорт таблицы</a>

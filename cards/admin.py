@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Card
+from .models import Card, Image
 
 
 class CardAdmin(admin.ModelAdmin):
@@ -8,3 +8,9 @@ class CardAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Card, CardAdmin)
+
+
+# class ImageAdmin(admin.ModelAdmin):
+#     list_display = ('path',)
+
+# admin.site.register(Image, ImageAdmin)
