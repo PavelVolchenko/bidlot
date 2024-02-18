@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts.apps.AccountsConfig',
     'pages.apps.PagesConfig',
+    'cards.apps.CardsConfig',
 ]
 
 MIDDLEWARE = [

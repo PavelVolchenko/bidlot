@@ -1,0 +1,11 @@
+{% extends '_base.html' %}
+
+{% block title %}{{ card.title }}{% endblock %}
+
+{% block content %}
+  <div class="card-detail">
+<h2><a href="">{{ card.title }}</a></h2>
+<p>Author: {{ card.author }}</p>
+<p>Price: {{ card.price }}</p>
+</div>
+{% endblock content %}

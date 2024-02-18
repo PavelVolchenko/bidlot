@@ -1,0 +1,35 @@
+{% extends '_base.html' %}
+
+
+{% block title %}{{ title }}{% endblock %}
+
+
+{% block content %}
+  {% if msg %}<h3>{{ msg }}</h3>{% endif %}
+  <div class="container-fluid">
+    <div class="d-flex flex-row flex-wrap">
+
+      {% for card in card_list %}
+
+        <div class="col-xl-2 col-md-3 col-sm-4 col-6 p-2">
+          <div class="card h-100">
+
+            <div class="card-body">
+              <h6 class="card-title">
+{#                <a href="{% url 'card_detail' card.pk %}">{{ card.title }}</a>#}
+                <a href="{{ card.get_absolute_url }}">{{ card.title }}</a>
+              </h6>
+              <div class="d-flex align-content-center"></div>
+            </div>
+            <div class="card-footer">
+
+              <button class="btn btn-success">{{ card.price }} RUB</button>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+
+{% endblock content %}
