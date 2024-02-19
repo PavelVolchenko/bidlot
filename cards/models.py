@@ -6,10 +6,8 @@ from django.urls import reverse
 from accounts.models import CustomUser
 
 
-# def user_directory_path(instance, filename):
-    # return 'user-{0}/{1}'.format(instance.card.user_id, filename)
-def user_directory_path(filename):
-    return 'user-{0}-{1}/{2}'.format(get_user_model().id, get_user_model(), filename)
+def user_directory_path(instance, filename):
+    return 'user-{0}-{1}/{2}'.format(instance.card.user_id, instance.card.user, filename)
 
 
 class Card(models.Model):
@@ -20,8 +18,6 @@ class Card(models.Model):
 
     user = models.ForeignKey(
         get_user_model(),
-        # CustomUser,
-        # related_name='user_id',
         on_delete=models.CASCADE)
 
     title = models.CharField(

@@ -8,16 +8,16 @@
   {% if msg %}<h3>{{ msg }}</h3>{% endif %}
   <div class="container-fluid">
     <div class="d-flex flex-row flex-wrap">
-
       {% for card in card_list %}
-
         <div class="col-xl-2 col-md-3 col-sm-4 col-6 p-2">
           <div class="card h-100">
-
+            <a href="{{ card.get_absolute_url }}">
+              <img src="{{ card.images.first.path.url }}?v={{ time_stamp }}"
+            class="card-img-top">
+            </a>
             <div class="card-body">
               <h6 class="card-title">
-{#                <a href="{% url 'card_detail' card.pk %}">{{ card.title }}</a>#}
-                <a href="{{ card.get_absolute_url }}">{{ card.title }}</a>
+                {{ card.title }}
               </h6>
               <div class="d-flex align-content-center"></div>
             </div>
@@ -30,6 +30,4 @@
       {% endfor %}
     </div>
   </div>
-
-
 {% endblock content %}

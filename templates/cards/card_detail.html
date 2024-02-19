@@ -1,11 +1,56 @@
 {% extends '_base.html' %}
+{% load static %}
 
 {% block title %}{{ card.title }}{% endblock %}
 
 {% block content %}
-  <div class="card-detail">
-<h2><a href="">{{ card.title }}</a></h2>
-<p>Author: {{ card.user }}</p>
-<p>Price: {{ card.price }}</p>
-</div>
+  <div class="container">
+    <div class="row">
+{#      {% include "pagination_cards.html" %}#}
+      <div class="col-5">
+        {% for image in card.images.all %}
+          <button
+                class="btn btn-outline-success mt-1"
+                hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                hx-swap="outerHTML"
+                hx-target="#img-{{ image.pk }}"
+{#                hx-put="{% url 'service:rotate_image' image.pk %}"#}
+                hx-put="#"
+          >
+          <span id="img-{{ image.pk }}">
+            <img src="{{ image.path.url }}?={{ time_stamp }}"
+                 class="img-fluid rounded-3">
+          </span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                 fill="currentColor" class="bi bi-arrow-clockwise"
+                 viewBox="0 0 16 16">
+              <path fill-rule="evenodd"
+                    d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"></path>
+              <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"></path>
+            </svg>
+            <span class="ps-1">
+              Повернуть на 90&deg;
+            </span>
+          </button>
+        {% endfor %}
+      </div>
+      <div class="col bg-light rounded-3 border border-secondary mt-1 p-2">
+        <form method="post" enctype="multipart/form-data" class="mt-2">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <div class="d-grid d-md-block mt-2">
+            <button type="submit" class="btn btn-outline-success">
+              Обновить информацию
+            </button>
+            <a href="#"
+               class="btn btn-outline-success">
+              Удалить карточку
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 {% endblock content %}
+
+
