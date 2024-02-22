@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'pages.apps.PagesConfig',
     'cards.apps.CardsConfig',
+    'django_htmx',
 ]
 
 MIDDLEWARE = [
@@ -34,11 +35,13 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django_htmx.middleware.HtmxMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
 ROOT_URLCONF = 'src.urls'
+
 
 TEMPLATES = [
     {
@@ -51,6 +54,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'src.context_processors.debug',
             ],
         },
     },
@@ -80,6 +84,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
 USE_L10N = True
 
 LANGUAGE_CODE = 'ru-ru'
@@ -90,7 +95,7 @@ TIME_ZONE = 'Europe/Moscow'
 
 USE_TZ = True
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 

@@ -1,5 +1,4 @@
 {% extends '_base.html' %}
-{% load static %}
 
 {% block title %}{{ card.title }}{% endblock %}
 
@@ -14,12 +13,10 @@
                 hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
                 hx-swap="outerHTML"
                 hx-target="#img-{{ image.pk }}"
-{#                hx-put="{% url 'service:rotate_image' image.pk %}"#}
-                hx-put="#"
+                hx-put="{% url 'rotate_image' image.pk %}"
           >
           <span id="img-{{ image.pk }}">
-            <img src="{{ image.path.url }}?={{ time_stamp }}"
-                 class="img-fluid rounded-3">
+            <img src="{{ image.path.url }}?={{ time_stamp }}" class="img-fluid rounded-3">
           </span>
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                  fill="currentColor" class="bi bi-arrow-clockwise"

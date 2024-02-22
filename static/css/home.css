@@ -1,0 +1,65 @@
+/*div .box {*/
+/*    display: flex;*/
+/*    margin: 20px;*/
+/*    !*height: 300px;*!*/
+/*    width: 300px;*/
+/*    justify-items: right;*/
+/*    background-color: yellow;*/
+/*}*/
+/*p {*/
+/*    color: yellow;*/
+
+/*}*/
+
+/*.container {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    flex-flow: column wrap;*/
+/*    flex-wrap: wrap;*/
+/*    height: 350px;*/
+/*}*/
+/*.box {*/
+/*    width: 200px;*/
+    /*display: flex;*/
+    /*flex-flow: column wrap;*/
+    /*flex-direction: row;*/
+    /*align-items: flex-start;*/
+/*}*/
+
+/*.imgg {*/
+/*    position: relative;*/
+/*    !*top: 0;*!*/
+/*    !*left: 0;*!*/
+/*    float: left;*/
+/*    max-height: 250px;*/
+/*    !*max-width: 50%;*!*/
+/*    !*height: 100px;*!*/
+/*    !*width: 100px;*!*/
+/*}*/
+
+/*.box {*/
+/*    max-height: 150px;*/
+/*}*/
+
+
+/*.img-box {*/
+	/*height: 300px;*/
+	/*height: 100%;*/
+	/*width: 100%;*/
+	/*position: relative;*/
+	/*display: inline-block;*/
+	/*position: absolute;*/
+
+/*}*/
+
+body {
+	background-color: #4ac1f7; !important
+}
+
+.card {
+	background-color: #eeeeee;
+}
+
+h6 {
+	color: #e35f5f;
+}
