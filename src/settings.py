@@ -15,6 +15,7 @@ DEBUG = env.bool('DEBUG')
 # ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 
 ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ['bidlot.online', 'www.bidlot.online']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -62,10 +63,17 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'src.wsgi.application'
 
-DATABASES['default'] = dj_database_url.config(
-    conn_max_age=600,
-    conn_health_checks=True,
-)
+# DATABASES['default'] = dj_database_url.config(
+#     conn_max_age=600,
+#     conn_health_checks=True,
+# )
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
 

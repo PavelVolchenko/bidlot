@@ -91,6 +91,7 @@ class UploadImagesView(LoginRequiredMixin, FormView):
             image_1 = Image.objects.create(card=card)
             image_2 = Image.objects.create(card=card)
             filename = str(card.pk)
+
             save_numpy_array_as_image(
                 first,
                 image_1.path,
@@ -99,11 +100,13 @@ class UploadImagesView(LoginRequiredMixin, FormView):
                 second,
                 image_2.path,
                 filename + "-2." + image_format)
-            words_list = collect_words(image_1.image.url)
-            card.parsed_info = ' '.join(words_list)
-            card.description = ' '.join(words_list).title()
-            # card.title = f"{card.pk}"
-            # card.description = f"{card.pk}"
+
+            # words_list = collect_words(image_1.image.url)
+            # card.parsed_info = ' '.join(words_list)
+            # card.description = ' '.join(words_list).title()
+
+            card.title = f"{card.pk}"
+            card.description = f"{card.pk}"
             card.price = 1000
 
             card.save()
@@ -147,7 +150,6 @@ def export_excel(request):
 
 @require_http_methods(["DELETE", "POST", "PUT"])
 def rotate_image(request: HtmxHttpRequest, pk) -> HttpResponse:
-    print(pk)
     image = Image.objects.get(id=pk)
     rotated_image = PILImage.open(image.path.path)
     rotated_image = rotated_image.rotate(270, PILImage.NEAREST, expand=True)

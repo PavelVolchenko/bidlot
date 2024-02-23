@@ -7,7 +7,10 @@ from accounts.models import CustomUser
 
 
 def user_directory_path(instance, filename):
-    return 'user-{0}-{1}/{2}'.format(instance.card.user_id, instance.card.user, filename)
+    return 'user-{0}-{1}/{2}'.format(
+        instance.card.user_id,
+        instance.card.user,
+        filename)
 
 
 class Card(models.Model):
@@ -35,6 +38,7 @@ class Card(models.Model):
         max_digits=10,
         decimal_places=2,
         blank=True)
+
     parsed_info = models.TextField(
         verbose_name='Полученное описание',
         blank=True)
@@ -60,7 +64,7 @@ class Card(models.Model):
             models.Index(fields=['-created']),
         ]
         permissions = [
-            ('special_status', 'Can be used')
+            ('special_status', 'Can be used'),
         ]
 
 
