@@ -7,8 +7,6 @@ from itertools import cycle
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from io import BytesIO
 import openpyxl
-# import requests
-from bs4 import BeautifulSoup
 from django_htmx.http import HttpResponseClientRedirect
 from django_htmx.http import HttpResponseClientRefresh
 from django_htmx.http import retarget
@@ -19,10 +17,11 @@ from django.views.decorators.http import require_GET
 from django.views.decorators.http import require_POST
 from django.shortcuts import render
 import time
-
 from .models import Card, Image
 from .forms import FileFieldForm, CardUpdateForm
 from service.image_processor import ImageProcessor
+from service.parse_info import CollectDescription
+from service.parse_info import get_page
 
 
 class HtmxHttpRequest(HttpRequest):
@@ -100,14 +99,22 @@ class UploadImagesView(LoginRequiredMixin, FormView):
                 second,
                 image_2.path,
                 filename + "-2." + image_format)
+            
+            # info = CollectDescription(image_1.path.url)
+            # info = CollectDescription("/media/user-1-pavel/80a4695f-d4e4-40e6-99d7-ddb8678c6c31-1.JPG")
+            info = CollectDescription("/media/user-1-pavel/a77cb751-0315-4c32-acd0-62304cf307bb-1.JPG")
+            card.title = info.title
+            card.description = info.collected_info
+            card.parsed_info = info.description
 
-            # words_list = collect_words(image_1.image.url)
-            # card.parsed_info = ' '.join(words_list)
+            # words_list = collect_words(image_1.path.url)
+            # card.title = ' '.join(words_list[:5]).title()
             # card.description = ' '.join(words_list).title()
+            # card.parsed_info = ' '.join(words_list)
 
-            card.title = f"{card.pk}"
-            card.description = f"{card.pk}"
-            card.price = 1000
+            # card.title = f"{card.pk}"
+            # card.description = f"{card.pk}"
+            card.price = 0
 
             card.save()
         return super().form_valid(self)
@@ -161,18 +168,3 @@ def rotate_image(request: HtmxHttpRequest, pk) -> HttpResponse:
                       "time_stamp": time.time_ns()
                   },
                   )
-
-
-def collect_words(image_url, domain='https://bidlot.ru'):
-    words = list()
-    try:
-        url = r'https://yandex.ru/images/search?source=collections&rpt=imageview&url=' + domain + image_url
-        soup = BeautifulSoup(requests.get(url).text, 'lxml')
-        similar = (soup.find('div', class_='Tags_type_expandable')
-                   .find_all('span', class_='Button2-Text'))
-        for i in similar:
-            words.append(i.getText())
-    except Exception as msg:
-        logger.info(f"{msg}")
-        words.append(msg)
-    return words

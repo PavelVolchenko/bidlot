@@ -21,11 +21,17 @@ class ImageProcessor:
         hsv = cv2.cvtColor(self.image, cv2.COLOR_BGR2HSV)
         ret1, thresh = cv2.threshold(hsv, 127, 255, cv2.THRESH_TOZERO)
         canny = cv2.Canny(thresh, 700, 100, L2gradient=False)
-        self.filtered_image = cv2.dilate(canny, np.ones((3, 3), dtype=int), iterations=2)
+        self.filtered_image = cv2.dilate(
+            canny,
+            np.ones((3, 3), dtype=int),
+            iterations=2)
 
     def find_contours(self):
         items_contour = list()
-        contours, hierarchy = cv2.findContours(self.filtered_image, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        contours, hierarchy = cv2.findContours(
+            self.filtered_image,
+            cv2.RETR_EXTERNAL,
+            cv2.CHAIN_APPROX_SIMPLE)
         min_area = 50_000
         for contour in contours:
             area = cv2.contourArea(contour)
@@ -33,8 +39,8 @@ class ImageProcessor:
         self.detected_items = items_contour
 
     def sort_contours(self):
-        self.coordinates = [cv2.boundingRect(item) for item in
-                            self.detected_items]
+        self.coordinates = [cv2.boundingRect(item) for item
+                            in self.detected_items]
         self.coordinates.sort(key=lambda x: sum(x))
 
     def nparray_images(self):
